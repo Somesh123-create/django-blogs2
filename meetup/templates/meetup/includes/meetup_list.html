@@ -1,0 +1,19 @@
+<li class='meetup-item'>
+  <article class="">
+    <div class="meetup-summary">
+      <div class="meetup-image">
+        <img src="{{ meet.image.url }}" alt="">
+      </div>
+      <div class="meetup-details">
+        <h3> {{ meet.title }} </h3>
+        <address class="">
+          New York - {{ meet.date }}
+          {% comment %} {{ meet.location }} {% endcomment %}
+        </address>
+      </div>
+    </div>
+    <div class="meetup-actions">
+      <a href="{{ meet.get_absolute_url }}" class='btn'>More Details</a>
+    </div>
+  </article>
+</li>

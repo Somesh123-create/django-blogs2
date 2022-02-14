@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} This Post Title {% endblock %}
+
+{% block css_file %}
+  <link rel="stylesheet" href="{% static 'blog/css/post_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+  <div id='error-block'>
+    <h2>Saving the comment failled!</h2>
+    <p>Please check the comment form below the post and fix you errors. <a href="#comment-form">Post</a></p>
+  </div>
+{% endif %}
+
+
+<section id="summary">
+  <h2>{{ posts.title }}</h2>
+  <div>
+    {% for tag in posts.tags.all %}
+      <span class='tag'>{{ tag.caption }}</span>
+    {% endfor %}
+  </div>
+  <div id="read-later">
+    <form action="{% url 'read_later' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="post_id" value="{{ posts.id }}">
+      <button type="submit" name="button">{% if stored %}Saved 'remove from read later'{% else %}Read Later{% endif %}</button>
+    </form>
+  </div>
+
+  <article>
+    <img src="{{ posts.image.url }}" alt="Post Title">
+    <address>By <a href="mailto:{{posts.author.email}}">{{ posts.author }}</a> </address>
+    <div>
+      Last updated on <time>{{ posts.date }}</time>
+    </div>
+  </article>
+</section>
+
+
+<main>
+  <p>
+    {{ posts.content|linebreaks }}
+  </p>
+</main>
+
+{% if comments %}
+  <section id='post_comments'>
+    <ul>
+      {% for comment in comments %}
+        <li>
+          <h2>{{ comment.user_name }}</h2>
+          <p>{{ comment.text|linebreaks }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}
+
+<section id="comment-form">
+  <h2>Your Comment</h2>
+  <form action="{% url 'post_detail_page' posts.slug %}" method="post">
+    {% csrf_token %}
+    {% for form_field in form %}
+    <div class="form-control {% if form_field.errors %} invalid {% endif %}">
+      {{ form_field.label_tag }}
+      {{ form_field }}
+      {{ form_field.errors }}
+    </div>
+    {% endfor %}
+
+    <button type="submit" name="button">Comment</button>
+  </form>
+
+</section>
+
+{% endblock %}

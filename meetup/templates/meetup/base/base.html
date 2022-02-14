@@ -1,0 +1,24 @@
+{% include 'base.html' %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}My MeetUps{% endblock %}</title>
+    <link rel="stylesheet" href="{% static "meetup/css/base.css" %}">
+    {% block site_css %}{% endblock %}
+  </head>
+  <body>
+    <header id="main-header">
+      <nav><a href="/meets" id="main-logo">Django MeetUp's</a></nav>
+      <h1>{% block main_heading %}We got great meetup coming up!{% endblock %}</h1>
+      <p>{% block header_content %}Find the one that best suits your needs!{% endblock %}</p>
+    </header>
+    <main>
+      {% block content %}
+
+      {% endblock %}
+    </main>
+  </body>
+</html>

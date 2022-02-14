@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    {% block css_file %} {% endblock %}
+  </head>
+  <body>
+
+    <header id="main-navigation">
+      <h1> <a href="{% url 'starting_page' %}"> Somesh' Blog</a> </h1>
+      <nav>
+        <a href="{% url 'read_later' %}">Stored Posts</a>
+        <a href="{% url 'post_page' %}">All Posts</a>
+        <a href="{% url 'meetup:home' %}">MettUps</a>
+      </nav>
+    </header>
+
+    {% block content %}
+
+    {% endblock %}
+
+  </body>
+
+</html>
